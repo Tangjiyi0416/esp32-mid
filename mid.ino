@@ -5,7 +5,7 @@ int state = 0;
 void setup() {
   // put your setup code here, to run once:
   myservo.attach(servoPin);
-  Serial.begin(115200);
+  //Serial.begin(115200);
 }
 const int inputPin = 12;
 void loop() {
@@ -21,19 +21,16 @@ void loop() {
   pinMode(inputPin, INPUT);
   p_time = pulseIn(inputPin, HIGH); //unit: us
   dist_cm = (float)((p_time / 2) / 29.41);
-  if (dist_cm <= 5 && state != 1) {
+  delay(250);
+  if (dist_cm <= 20 && state != 1) {
     myservo.write(180);
     delay(20);
     state = 1;
   }
-  else if (dist_cm > 10 && state != 0) {
-    myservo.write(0);
+  else if (dist_cm > 30 && state != 0) {
+    myservo.write(90);
     delay(20);
     state = 0;
   }
-  Serial.print(state);
-  Serial.print(" ");
-  Serial.println(dist_cm);
-  delay(120);
   //  myservo.write(180);
 }
